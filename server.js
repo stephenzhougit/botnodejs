@@ -10,7 +10,8 @@ var Client = require('node-rest-client').Client;
  
 var client = new Client();
  
-// direct way 
+
+var moment = require('moment');
 
 
 // Create bot
@@ -26,11 +27,14 @@ bot.add('/', function (session) {
     if(session.message.text.indexOf('who') >= 0) {
         session.send('The last call is from %s', data[0].callfrom);
     } else if(session.message.text.indexOf('when') >= 0) {
-        session.send('The last call is at %s', data[0].starttime);
+        var date = moment(data[0].starttime);
+        session.send('The last call is at %s', date.format("dddd, MMMM Do YYYY, h:mm:ss a"));
     } else if(session.message.text.indexOf('duration') >= 0) {
         session.send('The last call lasts %s seconds', data[0].callduration);
     } else if(session.message.text.indexOf('transcript') >= 0) {
-        session.send('The last call lasts %s seconds', data[0].speechtotextandentitydata.text);
+        session.send('The transcript of the last calls is  %s', data[0].speechtotextandentitydata.text);
+    } else if(session.message.text.indexOf('what') >= 0) {
+        session.send('The keywords of the last call are: %s ', data[0].speechtotextandentitydata.entities.keyword);
     }
     
 	// raw response 
