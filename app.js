@@ -45,7 +45,12 @@ bot.add('/', new builder.CommandDialog()
 	// console.log(response);
                 // var jsonObj = JSON.parse(data);
                 // session.send("callfrom");
-                session.send('Call from %s!', data[0].callfrom);
+                session.send('Call from');
+                // if(session.userData.name.indexOf("who") > 0){
+                    
+                // } else {
+                //     session.send('Call from %s!', data[0].speechtotextandentitydata.entity.keyword);
+                // }
             });
         }
     }));
